@@ -1,7 +1,7 @@
 
 
 
-A graph is a set of vertices and edges.  Vertices and edges can be used to describe any graph.  We care about graphs in a highly connected world because many types of data can be represented as graphs. Social networks, transportation networks,  computer networks, and any dataset that exhibit a relationship between its elements can be represented by graphs.
+A graph is a set of vertices and edges.  Vertices and edges can be used to describe any graph. In a highly connected world, we care about graphs because many types of data can be represented as graphs. Social networks, transportation networks,  computer networks, and any dataset that exhibits a relationship between its elements can be represented by graphs.
 Once a graph represents your data, graph theory and graph algorithms are under your service. Anything you can apply on a graph is applicable to your data. 
 
 
