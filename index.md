@@ -260,6 +260,6 @@ In the next article , we will try to contemplate this data more.
 
 Thanks a lot for your time!
 
-Aiman [LinkedIn](linkedin.com/in/aiman-ghannami-65b52669)
+Aiman G. : [LinkedIn](linkedin.com/in/aiman-ghannami-65b52669)
 
 	
