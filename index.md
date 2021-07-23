@@ -1,4 +1,4 @@
-# From Graphs to Random Walks and Vice Versa
+
 
 
 A graph is a set of vertices and edges.  Vertices and edges can be used to describe any graph.  We care about graphs in a highly connected world because many types of data can be represented as graphs. Social networks, transportation networks,  computer networks, and any dataset that exhibit a relationship between its elements can be represented by graphs.
