@@ -31,15 +31,14 @@ For generating random graphs, we will use the connected Watts–Strogatz model. 
 
 ```Python
 def gen_topo(nodes,connected_to_Xneighbors,p):
-    n = nodes  # 10 nodes
+    n = nodes  
     
     m=connected_to_Xneighbors # e.g., each node initially connected to its m nearest neighbors
     g=nx.connected_watts_strogatz_graph(n,m,p) # These connections are randomly rewired with probability of p
     
     return g
 ```
-
-Have a look at our generated graph:
+Get to know our generated graph:
 
 
 ```Python
@@ -54,7 +53,7 @@ plt.show()
 </p>
 
 
-The following step is to create a function that explores graphs using random walk and obtain N random walks as follows:
+The following step is to create a function that explores graphs using random walk and obtain _N_ random walks as follows:
 ```Python
 # get a single random walk
 def Single_randomwalk(src_node, walk_length):
@@ -91,7 +90,7 @@ def bunch_walks(graph_g, No_walks, Max_walk_len ,tqdm_disable ) :
 
     return random_walks
 ```
-To get a bunch of random walks, we invoke the function above as follows.
+Call the function above to get a bunch of random walks.
 
 ```Python
 random_walks= bunch_walks(g, 20, 10 ,tqdm_disable=False)
