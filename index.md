@@ -55,9 +55,7 @@ The following step is to create a function that explores graphs using random wal
 ```Python
 # get a single random walk
 def Single_randomwalk(src_node, walk_length):
-    
     random_walk = [src_node]
-    
     for i in range(walk_length-1):
         temp = list(g.neighbors(src_node))
         temp = list(set(temp) - set(random_walk))    
@@ -70,7 +68,6 @@ def Single_randomwalk(src_node, walk_length):
 
 
 # get a bunch of ranodm walks
-
 def bunch_walks(graph_g, No_walks, Max_walk_len ,tqdm_disable ) :
     # get list of all nodes of the graph
     vertices = list(graph_g.nodes())
