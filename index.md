@@ -32,10 +32,8 @@ For generating random graphs, we will use the connected Watts–Strogatz model. 
 ```Python
 def gen_topo(nodes,connected_to_Xneighbors,p):
     n = nodes  
-    
     m=connected_to_Xneighbors # e.g., each node initially connected to its m nearest neighbors
     g=nx.connected_watts_strogatz_graph(n,m,p) # These connections are randomly rewired with probability of p
-    
     return g
 ```
 Get to know our generated graph:
@@ -65,11 +63,9 @@ def Single_randomwalk(src_node, walk_length):
         temp = list(set(temp) - set(random_walk))    
         if len(temp) == 0:
             break
-
         random_node = random.choice(temp)
         random_walk.append(random_node)
         src_node = random_node
-        
     return random_walk
 
 
@@ -78,16 +74,12 @@ def Single_randomwalk(src_node, walk_length):
 def bunch_walks(graph_g, No_walks, Max_walk_len ,tqdm_disable ) :
     # get list of all nodes of the graph
     vertices = list(graph_g.nodes())
-    
     random_walks = []
     No_of_walks=list(range(0, No_walks))
-
     for n in tqdm(No_of_walks,position=0, leave=True ,disable=tqdm_disable ): 
-
             Rand_Src_vertex= random.choice(vertices)
             random_walks.append(Single_randomwalk(Rand_Src_vertex, Max_walk_len)) 
             # Max_walk_len can be as big as the number of vertices in the graph
-
     return random_walks
 ```
 Call the function above to get a bunch of random walks.
@@ -143,7 +135,6 @@ def get_neighbors(random_walks,all_nodes):
   def reconstruct_graph(dic):
     new_g= nx.Graph()
     g.add_nodes_from(dic.keys())
-
     for x, y in dic.items():
         new_g.add_edges_from(([(x, t) for t in y]))
     return new_g
@@ -155,11 +146,8 @@ All the information we can infer is from the random walks we have.
 random_walks= bunch_walks(g, 20, 10 ,tqdm_disable=False)
 # we will get  vertices from the random walks 
 Distnict_nodes = {x for l in random_walks for x in l}
-Distnict_nodes=list(Distnict_nodes)
-    
+Distnict_nodes=list(Distnict_nodes) 
 graph_dic=get_neighbors(random_walks,Distnict_nodes)  
-
-
 new_g = reconstruct_graph(graph_dic)  
 nx.draw(new_g,pos,with_labels=True)
 ```
@@ -175,10 +163,7 @@ random_walks= bunch_walks(g, 8, 5 ,tqdm_disable=False)
 # we will get  vertices from the random walks 
 Distnict_nodes = {x for l in random_walks for x in l}
 Distnict_nodes=list(Distnict_nodes)
-    
 graph_dic=get_neighbors(random_walks,Distnict_nodes)  
-
-
 new_g = reconstruct_graph(graph_dic)  
 nx.draw(new_g,pos,with_labels=True)
 ```
@@ -227,7 +212,6 @@ Let us explore the data we have just obtained
 ```Python
 fig, axs = plt.subplots(nrows=2,ncols=1,figsize=(12,10), sharex=True)
 fig.subplots_adjust(hspace=0.01)
-
 sns.boxplot(x="No_walks" ,y="ASPL",data=Metrics_df,ax= axs[0])
 sns.stripplot(x="No_walks" ,y="ASPL" ,data=Metrics_df, jitter=True,alpha=0.3, edgecolor='gray', linewidth=1, ax= axs[0])
 l1=axs[0].axhline(nx.average_shortest_path_length(g),linewidth=2.5, color='r', ls='--')
@@ -235,7 +219,6 @@ l1.set_label('ASPL(Orignal graph)')
 axs[0].legend(loc='best')
 axs[0].set_ylabel('ASPL')
 #axs[0].set_xlabel('#Walks')
-
 sns.boxplot(x="No_walks" ,y="Ave_degree",data=Metrics_df,ax= axs[1])
 sns.stripplot(x="No_walks" ,y="Ave_degree" ,data=Metrics_df, jitter=True, alpha=0.3, edgecolor='gray', linewidth=1, ax=axs[1])
 l2=axs[1].axhline((g.number_of_edges()/ (len(g.nodes()))),linewidth=2.5, color='r',ls='--')
@@ -243,7 +226,6 @@ l2.set_label('Ave. degree(Orignal graph)')
 axs[1].legend(loc='best')
 axs[1].set_ylabel('Average Degree')
 axs[1].set_xlabel('#Walks')
-
 fig.suptitle('#Walks vs. ASPL/Graph Average Degree', fontsize=15)
  ``` 
  <p align="center">
