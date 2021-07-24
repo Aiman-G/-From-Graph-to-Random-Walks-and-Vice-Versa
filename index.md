@@ -17,7 +17,7 @@ In this article, we will :
  
 For more on graphs /random walks, you have Google. Let us get our hands dirty and import the libraries we will use:
 
-```Python
+```python
 import networkx as nx
 import random
 import pandas as pd
@@ -29,7 +29,7 @@ from tqdm import tqdm
 
 For generating random graphs, we will use the connected Watts–Strogatz model. The following function will return a small-world graph. 
 
-```Python
+```python
 def gen_topo(nodes,connected_to_Xneighbors,p):
     n = nodes  
     m=connected_to_Xneighbors # e.g., each node initially connected to its m nearest neighbors
@@ -39,7 +39,7 @@ def gen_topo(nodes,connected_to_Xneighbors,p):
 Get to know our generated graph:
 
 
-```Python
+```python
 g=gen_topo(20,4,0.1)
 pos=nx.spring_layout(g)
 nx.draw(g,pos,with_labels=True)
@@ -52,7 +52,7 @@ plt.show()
 
 
 The following step is to create a function that explores graphs using random walk and obtain _N_ random walks as follows:
-```Python
+```python
 # get a single random walk
 def Single_randomwalk(src_node, walk_length):
     random_walk = [src_node]
@@ -81,13 +81,13 @@ def bunch_walks(graph_g, No_walks, Max_walk_len ,tqdm_disable ) :
 ```
 Call the function above to get a bunch of random walks.
 
-```Python
+```python
 random_walks= bunch_walks(g, 20, 10 ,tqdm_disable=False)
 ```
 
 Just to be sure that we have differnt walks , we will classify the walks and see how many walks we have and their lengths:
 
-```Python
+```python
 def Classify_Walks(Walks):
     Output = {}
     for L in Walks:
@@ -106,7 +106,7 @@ Time for the reconstruction . First we will create a function that gives us a di
 
 
 
-```Python
+```python
 
 def get_neighbors(random_walks,all_nodes):
     Graph_dic = {key:[] for key in all_nodes}
@@ -139,7 +139,7 @@ def get_neighbors(random_walks,all_nodes):
 Assume we know nothing about the _mama graph_, no number of vertices, and no information about their identifiers.
 All the information we can infer is from the random walks we have. 
 
-```Python
+```python
 random_walks= bunch_walks(g, 20, 10 ,tqdm_disable=False)
 # we will get  vertices from the random walks 
 Distnict_nodes = {x for l in random_walks for x in l}
@@ -155,7 +155,7 @@ nx.draw(new_g,pos,with_labels=True)
 
 We've just recovered the _mother_ graph from the random walks. What if we decreased the size of our random walks and the max length? 
 
-```Python
+```python
 random_walks= bunch_walks(g, 8, 5 ,tqdm_disable=False)
 # we will get  vertices from the random walks 
 Distnict_nodes = {x for l in random_walks for x in l}
@@ -175,7 +175,7 @@ Let's vary the number of walks and their max length and compare them with the or
 The graph metrics we want to observe are average shortest distance and average degree.
 These are some of the very robust metrics of any graph.
 
-```Python
+```python
 No_walks=[]
 Max_walk_len=[]
 # Graph metric we want to observe 
@@ -206,7 +206,7 @@ Metrics_df.head()
 Let us explore the data we have just obtained 
 
 
-```Python
+```python
 fig, axs = plt.subplots(nrows=2,ncols=1,figsize=(12,10), sharex=True)
 fig.subplots_adjust(hspace=0.01)
 sns.boxplot(x="No_walks" ,y="ASPL",data=Metrics_df,ax= axs[0])
