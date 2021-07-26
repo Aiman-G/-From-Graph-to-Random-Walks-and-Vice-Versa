@@ -1,7 +1,7 @@
 
 
 
-A graph is a set of vertices and edges that connect vertices.   Vertices and edges can be used to describe any graph.  In a highly connected world,  graphs data structures are essential as they provide a natural way to represent data elements and the dependencies between these elements. Many data can be represented as graphs,  social networks, transportation networks,  computer networks, brain networks, networks in causal reasoning, neural networks,  programs structures , and so on.  Any dataset that has a kind of dependent relationship between its elements can be represented as a graph. Once we have our data in a graph, there is an independent field in mathematics called graph theory (or network science) that contains rich methods and  formalties that can be used to reason about our data. 
+A graph is a set of vertices and edges that connect vertices.   Vertices and edges can be used to describe any graph.  In a highly connected world,  graphs data structures are essential as they provide a natural way to represent data elements and the dependencies between these elements. Many data can be represented as graphs,  social networks, transportation networks,  computer networks, brain networks, concepts in causal reasoning, neural networks,  programs structures , and so on.  Any dataset that has a kind of dependent relationship between its elements can be represented as a graph. Once we have our data in a graph, there is an independent field in mathematics called graph theory (or network science) that contains rich methods and  formalties that can be used to reason about our data. 
 
 
 
