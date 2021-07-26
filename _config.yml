@@ -1,4 +1,4 @@
-theme: jekyll-theme-minimal
+theme: jekyll-theme-architect
 title: From Graph to Random Walks and Vice Versa
 markdown: kramdown
 kramdown:
