@@ -237,6 +237,6 @@ In the next article , we will try to contemplate this data more.
 
 Thanks a lot for your time!
 
-Aiman Ghannami . : [LinkedIn](linkedin.com/in/aiman-ghannami-65b52669) : aymen.omg@gmail.com .
+Aiman Ghannami . : [LinkedIn](linkedin.com/in/aiman-ghannami-65b52669) - Email: aymen.omg@gmail.com 
 
 	
