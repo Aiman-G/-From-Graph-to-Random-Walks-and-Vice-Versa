@@ -31,16 +31,16 @@ For generating random graphs, we will use the connected Watts–Strogatz model. 
 ```python
 def gen_topo(nodes,connected_to_Xneighbors,p):
     n = nodes  
-    m=connected_to_Xneighbors # e.g., each node initially connected to its m nearest neighbors
-    g=nx.connected_watts_strogatz_graph(n,m,p) # These connections are randomly rewired with probability of p
+    m = connected_to_Xneighbors # e.g., each node initially connected to its m nearest neighbors
+    g = nx.connected_watts_strogatz_graph(n,m,p) # These connections are randomly rewired with probability of p
     return g
 ```
 Get to know our generated graph:
 
 
 ```python
-g=gen_topo(20,4,0.1)
-pos=nx.spring_layout(g)
+g = gen_topo(20,4,0.1)
+pos = nx.spring_layout(g)
 nx.draw(g,pos,with_labels=True)
 plt.show()
 ```
@@ -71,7 +71,7 @@ def bunch_walks(graph_g, No_walks, Max_walk_len ,tqdm_disable ) :
     # get list of all nodes of the graph
     vertices = list(graph_g.nodes())
     random_walks = []
-    No_of_walks=list(range(0, No_walks))
+    No_of_walks = list(range(0, No_walks))
     for n in tqdm(No_of_walks,position=0, leave=True ,disable=tqdm_disable ): 
             Rand_Src_vertex= random.choice(vertices)
             random_walks.append(Single_randomwalk(Rand_Src_vertex, Max_walk_len)) 
@@ -93,7 +93,7 @@ def Classify_Walks(Walks):
         Output.setdefault(len(L), list()).append(L)
     return Output
     
-resulted_Dic=Classify_Walks(random_walks)
+resulted_Dic = Classify_Walks(random_walks)
 for key, value in resulted_Dic.items():
     print("Length :{},  Size :{}".format (key, len([item for item in value if item])))
 ```    
@@ -107,21 +107,21 @@ Time for the reconstruction . First we will create a function that gives us a di
 
 ```python
 
-def get_neighbors(random_walks,all_nodes):
+def get_neighbors(random_walks, all_nodes):
     Graph_dic = {key:[] for key in all_nodes}
     for i in range(len(all_nodes)):
-        Current_node= all_nodes[i] # get the nodes one by one
+        Current_node = all_nodes[i] # get the nodes one by one
         # We need to look for each node's neighbors 
-        for j in range(0,len(random_walks)):
-            j_walk=random_walks[j]
+        for j in range(0, len(random_walks)):
+            j_walk = random_walks[j]
             for node in j_walk:
                 if  Current_node in j_walk and Current_node!=node :
-                    Node_index=j_walk.index(Current_node)# Get its index so that we can get its neighbors
+                    Node_index = j_walk.index(Current_node)# Get its index so that we can get its neighbors
                     # Check if the node is at the beggining or at the last of the walk, to avoid out of range indexing
-                    temp_neighbors=[]
+                    temp_neighbors = []
                     if Node_index != 0 and Node_index != len(j_walk)-1 :
-                        temp_neighbors.extend([j_walk[Node_index-1],j_walk[Node_index+1]])
-                    elif Node_index== 0 :
+                        temp_neighbors.extend([j_walk[Node_index-1], j_walk[Node_index+1]])
+                    elif Node_index == 0 :
                         temp_neighbors.append(j_walk[Node_index+1])
                     else:
                         temp_neighbors.append(j_walk[Node_index-1])
@@ -139,13 +139,13 @@ Assume we know nothing about the _mama graph_, no number of vertices, and no inf
 All the information we can infer is from the random walks we have. 
 
 ```python
-random_walks= bunch_walks(g, 20, 10 ,tqdm_disable=False)
+random_walks = bunch_walks(g, 20, 10 , tqdm_disable=False)
 # we will get  vertices from the random walks 
 Distnict_nodes = {x for l in random_walks for x in l}
-Distnict_nodes=list(Distnict_nodes) 
-graph_dic=get_neighbors(random_walks,Distnict_nodes)  
+Distnict_nodes = list(Distnict_nodes) 
+graph_dic = get_neighbors(random_walks, Distnict_nodes)  
 new_g = reconstruct_graph(graph_dic)  
-nx.draw(new_g,pos,with_labels=True)
+nx.draw(new_g,pos, with_labels=True)
 ```
 
 <p align="center">
@@ -155,11 +155,11 @@ nx.draw(new_g,pos,with_labels=True)
 We've just recovered the _mother_ graph from the random walks. What if we decreased the size of our random walks and the max length? 
 
 ```python
-random_walks= bunch_walks(g, 8, 5 ,tqdm_disable=False)
+random_walks = bunch_walks(g, 8, 5 ,tqdm_disable=False)
 # we will get  vertices from the random walks 
 Distnict_nodes = {x for l in random_walks for x in l}
-Distnict_nodes=list(Distnict_nodes)
-graph_dic=get_neighbors(random_walks,Distnict_nodes)  
+Distnict_nodes = list(Distnict_nodes)
+graph_dic = get_neighbors(random_walks, Distnict_nodes)  
 new_g = reconstruct_graph(graph_dic)  
 nx.draw(new_g,pos,with_labels=True)
 ```
@@ -175,19 +175,19 @@ The graph metrics we want to observe are average shortest distance and average d
 These are some of the very robust metrics of any graph.
 
 ```python
-No_walks=[]
-Max_walk_len=[]
+No_walks = []
+Max_walk_len = []
 # Graph metric we want to observe 
-Ave_degree=[]
-ASPL=[]
+Ave_degree = []
+ASPL= []
 for i in range(2000):
-    Walks_size=random.randint(len(g.nodes)//4, len(g.nodes))
-    Max_length=random.randint(3,len(g.nodes))
-    random_walks= bunch_walks(g, Walks_size, Max_length,tqdm_disable=True)
-    graph_dic=get_neighbors(random_walks,Distnict_nodes)  
+    Walks_size = random.randint(len(g.nodes)//4, len(g.nodes))
+    Max_length = random.randint(3, len(g.nodes))
+    random_walks = bunch_walks(g, Walks_size, Max_length,tqdm_disable=True)
+    graph_dic = get_neighbors(random_walks, Distnict_nodes)  
     new_g = reconstruct_graph(graph_dic)
     if nx.is_connected(new_g) :
-        Ave_degree.append(new_g.number_of_edges()/ (len(new_g.nodes())))
+        Ave_degree.append(new_g.number_of_edges()/(len(new_g.nodes())))
         ASPL.append(nx.average_shortest_path_length(new_g))
         No_walks.append(Walks_size)
         Max_walk_len.append(Max_length)
@@ -206,18 +206,18 @@ Let us explore the data we have just obtained
 
 
 ```python
-fig, axs = plt.subplots(nrows=2,ncols=1,figsize=(12,10), sharex=True)
+fig, axs = plt.subplots(nrows=2, ncols=1, figsize=(12,10), sharex=True)
 fig.subplots_adjust(hspace=0.01)
-sns.boxplot(x="No_walks" ,y="ASPL",data=Metrics_df,ax= axs[0])
+sns.boxplot(x="No_walks", y="ASPL",data=Metrics_df,ax= axs[0])
 sns.stripplot(x="No_walks" ,y="ASPL" ,data=Metrics_df, jitter=True,alpha=0.3, edgecolor='gray', linewidth=1, ax= axs[0])
-l1=axs[0].axhline(nx.average_shortest_path_length(g),linewidth=2.5, color='r', ls='--')
+l1=axs[0].axhline(nx.average_shortest_path_length(g), linewidth=2.5, color='r', ls='--')
 l1.set_label('ASPL(Orignal graph)')
 axs[0].legend(loc='best')
 axs[0].set_ylabel('ASPL')
 #axs[0].set_xlabel('#Walks')
-sns.boxplot(x="No_walks" ,y="Ave_degree",data=Metrics_df,ax= axs[1])
-sns.stripplot(x="No_walks" ,y="Ave_degree" ,data=Metrics_df, jitter=True, alpha=0.3, edgecolor='gray', linewidth=1, ax=axs[1])
-l2=axs[1].axhline((g.number_of_edges()/ (len(g.nodes()))),linewidth=2.5, color='r',ls='--')
+sns.boxplot(x="No_walks", y="Ave_degree", data=Metrics_df, ax= axs[1])
+sns.stripplot(x="No_walks", y="Ave_degree" ,data=Metrics_df, jitter=True, alpha=0.3, edgecolor='gray', linewidth=1, ax=axs[1])
+l2=axs[1].axhline((g.number_of_edges()/ (len(g.nodes()))), linewidth=2.5, color='r',ls='--')
 l2.set_label('Ave. degree(Orignal graph)')
 axs[1].legend(loc='best')
 axs[1].set_ylabel('Average Degree')
